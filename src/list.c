@@ -84,3 +84,27 @@ void AJN_List_PrependPtr(AJN_List *list, void *ptr)
     }
 }
 
+void AJN_List_Get(AJN_List *list, int index, void *dst)
+{
+    AJN_ListItem *item = list->head;
+    for (int i = 0; i < index; i++) {
+        item = item->next;
+        if (item == NULL) {
+            return;
+        }
+    }
+    memcpy(dst, item->value, list->item_size);
+}
+
+void *AJN_List_At(AJN_List *list, int index)
+{
+    AJN_ListItem *item = list->head;
+    for (int i = 0; i < index; i++) {
+        item = item->next;
+        if (item == NULL) {
+            return NULL;
+        }
+    }
+    return item->value;
+}
+

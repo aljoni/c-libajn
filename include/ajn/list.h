@@ -34,3 +34,7 @@ extern void AJN_List_Prepend(AJN_List *list, void *src);
 
 extern void AJN_List_PrependPtr(AJN_List *list, void *ptr);
 
+extern void AJN_List_Get(AJN_List *list, int index, void *dst);
+
+extern void *AJN_List_At(AJN_List *list, int index);
+
