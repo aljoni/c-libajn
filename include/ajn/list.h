@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdlib.h>
+
 /**
  * Linked-list implementation.
  *
@@ -10,7 +12,7 @@ typedef struct AJN_ListItem
 {
     void *value;
     struct AJN_ListItem *next;
-}
+} AJN_ListItem;
 
 typedef struct AJN_List
 {
@@ -18,7 +20,7 @@ typedef struct AJN_List
     int size;
     struct AJN_ListItem *head;
     struct AJN_ListItem *tail;
-}
+} AJN_List;
 
 extern AJN_List *AJN_List_Create(size_t item_size);
 

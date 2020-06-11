@@ -1,4 +1,5 @@
 #include "ajn/list.h"
+#include <string.h>
 
 AJN_List *AJN_List_Create(size_t item_size)
 {
