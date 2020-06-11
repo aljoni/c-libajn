@@ -40,11 +40,39 @@ void AJN_List_Append(AJN_List *list, void *src)
     }
 }
 
+void AJN_List_AppendPtr(AJN_List *list, void *ptr)
+{
+    AJN_ListItem *item = malloc(sizeof(AJN_ListItem));
+    item->value = ptr;
+
+    if (list->head == NULL) {
+        list->head = item;
+        list->tail = item;
+    } else {
+        item->next = list->tail;
+        list->tail = item;
+    }
+}
+
 void AJN_List_Prepend(AJN_List *list, void *src)
 {
     AJN_ListItem *item = malloc(sizeof(AJN_ListItem));
     item->value = malloc(list->item_size);
     memcpy(item->value, src, list->item_size);
+
+    if (list->head == NULL) {
+        list->head = item;
+        list->tail = item;
+    } else {
+        item->next = list->head;
+        list->head = item;
+    }
+}
+
+void AJN_List_PrependPtr(AJN_List *list, void *ptr)
+{
+    AJN_ListItem *item = malloc(sizeof(AJN_ListItem));
+    item->value = ptr;
 
     if (list->head == NULL) {
         list->head = item;
