@@ -84,10 +84,46 @@ void AJN_List_PrependPtr(AJN_List *list, void *ptr)
     }
 }
 
+void AJN_List_Insert(AJN_List *list, int index, void *src)
+{
+    if (index < 0 || index > list->size) {
+        return;
+    }
+
+    AJN_ListItem *prev = list->head;
+    for (int i = 0; i < list->size; ++i) {
+        prev = prev->next;
+    }
+
+    AJN_ListItem *item = malloc(sizeof(AJN_ListItem));
+    item->value = malloc(list->item_size);
+    item->next = prev->next;
+    prev->next = item;
+
+    memcpy(item->value, src, list->item_size);
+}
+
+void AJN_List_InsertPtr(AJN_List *list, int index, void *ptr)
+{
+    if (index < 0 || index > list->size) {
+        return;
+    }
+
+    AJN_ListItem *prev = list->head;
+    for (int i = 0; i < list->size; ++i) {
+        prev = prev->next;
+    }
+
+    AJN_ListItem *item = malloc(sizeof(AJN_ListItem));
+    item->value = ptr;
+    item->next = prev->next;
+    prev->next = item;
+}
+
 void AJN_List_Get(AJN_List *list, int index, void *dst)
 {
     AJN_ListItem *item = list->head;
-    for (int i = 0; i < index; i++) {
+    for (int i = 0; i < index; ++i) {
         item = item->next;
         if (item == NULL) {
             return;
@@ -99,12 +135,27 @@ void AJN_List_Get(AJN_List *list, int index, void *dst)
 void *AJN_List_At(AJN_List *list, int index)
 {
     AJN_ListItem *item = list->head;
-    for (int i = 0; i < index; i++) {
+    for (int i = 0; i < index; ++i) {
         item = item->next;
         if (item == NULL) {
             return NULL;
         }
     }
     return item->value;
+}
+
+void AJN_List_Remove(AJN_List *list, int index)
+{
+    AJN_ListItem *prev = NULL, *item = list->head;
+    for (int i = 0; i < index; ++i) {
+        prev = item;
+        item = item->next;
+    }
+
+    prev->next = item->next;
+    if (item->value != NULL) {
+        free(item->value);
+    }
+    free(item);
 }
 
