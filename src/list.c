@@ -7,6 +7,7 @@ AJN_List *AJN_List_Create(size_t item_size)
 
     list->item_size = item_size;
     list->size = 0;
+    list->free_func = free;
     list->head = NULL;
     list->tail = NULL;
 
@@ -19,7 +20,7 @@ void AJN_List_Free(AJN_List *list)
     while (item != NULL) {
         next = item->next;
         if (item->value != NULL) {
-            free(item->value);
+            list->free_func(item->value);
         }
         free(item);
         item = next;
@@ -154,7 +155,7 @@ void AJN_List_Remove(AJN_List *list, int index)
 
     prev->next = item->next;
     if (item->value != NULL) {
-        free(item->value);
+        list->free_func(item->value);
     }
     free(item);
 }

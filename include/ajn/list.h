@@ -8,6 +8,8 @@
  * @author Alex Nicholson
  */
 
+typedef void AJN_List_FreeFunc(void *);
+
 typedef struct AJN_ListItem
 {
     void *value;
@@ -18,6 +20,7 @@ typedef struct AJN_List
 {
     size_t item_size;
     int size;
+    AJN_List_FreeFunc *free_func;
     struct AJN_ListItem *head;
     struct AJN_ListItem *tail;
 } AJN_List;
